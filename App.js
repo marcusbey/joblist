@@ -2,12 +2,11 @@ import React, {Component} from 'react';
 import Table from './Table.js'
 
 class App extends Component {
-  render() {
-
-    const people = [
+  state = {
+    people: [
       {
-        name: 'Charlie',
-        job: 'Janitor',
+      name: 'Charlie',
+      job: 'Janitor',
       },
       {
         name: 'Mac',
@@ -21,12 +20,24 @@ class App extends Component {
         name: 'Dennis',
         job: 'Bartender',
       },
-    ];
+    ],
+    }
 
+  removePeople = (index) => {
+    const {people} = this.state
+  
+    this.setState(
+      { people: people.filter((character, i) => {
+        return i !== index
+      }),
+    })
+  }
 
+  render() {
+    const {people} = this.state;
     return (
       <div className="container">
-        <Table tableData = {people} /> 
+        <Table peopleData={people} removePeople={this.removePeople} />
       </div>
     );
   }
